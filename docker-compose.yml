@@ -12,7 +12,7 @@ services:
     volumes:
       - ./paperless/data:/usr/src/paperless/data
       - ./paperless/media:/usr/src/paperless/media
-      -  ./paperless/consume:/usr/src/paperless/consume
+      - ./paperless/consume:/usr/src/paperless/consume
       - ./paperless/export:/usr/src/paperless/export
     environment:
       - PAPERLESS_URL=https://paper.${BASE_DOMAIN:-ozeliurs.com}
@@ -28,7 +28,7 @@ services:
       - "traefik.http.services.paperless.loadbalancer.server.port=8000"
       - "traefik.http.routers.paperless.middlewares=authelia@docker"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8000" ]
 
   paperless-redis:
     image: redis:6.0
@@ -38,7 +38,7 @@ services:
     labels:
       - "traefik.enable=false"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
 
 
 networks:
