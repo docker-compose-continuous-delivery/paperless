@@ -7,7 +7,8 @@ services:
     container_name: paperless-ng
     restart: unless-stopped
     depends_on:
-      - redis_paperless
+      paperless-redis:
+        condition: service_healthy
     volumes:
       - ./paperless/data:/usr/src/paperless/data
       - ./paperless/media:/usr/src/paperless/media
@@ -15,7 +16,7 @@ services:
       - ./paperless/export:/usr/src/paperless/export
     environment:
       - PAPERLESS_URL=https://paper.${BASE_DOMAIN:-ozeliurs.com}
-      - PAPERLESS_REDIS=redis://redis_paperless:6379
+      - PAPERLESS_REDIS=redis://paperless-redis:6379
     networks:
       - traefik
     labels:
@@ -29,7 +30,7 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000"]
 
-  redis_paperless:
+  paperless-redis:
     image: redis:6.0
     restart: unless-stopped
     networks:
