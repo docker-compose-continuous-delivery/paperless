@@ -4,7 +4,7 @@ services:
 
   paperless:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
-    container_name: paperless-ng
+    container_name: paperless
     restart: unless-stopped
     depends_on:
       paperless-redis:
@@ -33,6 +33,7 @@ services:
   paperless-redis:
     image: redis:6.0
     restart: unless-stopped
+    container_name: paperless-redis
     networks:
       - traefik
     labels:
