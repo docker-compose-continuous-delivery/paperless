@@ -27,6 +27,8 @@ services:
       - "traefik.http.routers.paperless.tls.certresolver=cloudflare"
       - "traefik.http.services.paperless.loadbalancer.server.port=8000"
       - "traefik.http.routers.paperless.middlewares=authelia@docker"
+
+      - "com.centurylinklabs.watchtower.enable=true"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8000" ]
 
@@ -38,6 +40,8 @@ services:
       - traefik
     labels:
       - "traefik.enable=false"
+
+      - "com.centurylinklabs.watchtower.enable=true"
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
 
